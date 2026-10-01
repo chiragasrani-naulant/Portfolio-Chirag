@@ -106,6 +106,7 @@ footer{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;paddin
 @media(hover:hover) and (pointer:fine){#cur{display:block}}
 @media(max-width:760px){
  body{font-size:16px}
+ #home h1{font-size:clamp(2.8rem,16.5vw,5rem);font-weight:600}
  section{padding:11vh 6vw 4vh}
  .about{grid-template-columns:1fr}.ph{max-width:240px}
  .exp{grid-template-columns:1fr;gap:4px}.exp .yr:last-child{text-align:left}
@@ -146,8 +147,8 @@ footer{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;paddin
 <main>
 <section id="home">
   <h1 data-split>Chirag<br>Asrani<span class="c">.</span></h1>
-  <p class="role" data-r>I'm a <span class="rw"><em><i>fashion technologist</i><i>founder</i><i>writer</i><i>storyteller</i><i>fashion technologist</i></em></span></p>
-  <p class="sub" data-r>Fashion technology student, founder and writer building brands from Rajasthan.</p>
+  <p class="role" data-r>I'm a <span class="rw"><em><i>entrepreneur</i><i>creator</i><i>founder</i><i>writer</i><i>entrepreneur</i></em></span></p>
+  <p class="sub" data-r>Entrepreneur and creator from Udaipur, turning ideas into brands, spaces and stories.</p>
   <div class="btns" data-r>
     <a class="btn" href="#contact" data-go="contact" data-mag>Get in touch</a>
     <a class="btn alt" href="#resume" data-go="resume" data-mag>View resume</a>
@@ -163,9 +164,10 @@ footer{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;paddin
   <div class="about">
     <div class="ph">Add your photo<br>(see steps)</div>
     <div>
-      <p data-r>I'm Chirag, a Fashion Technology student at NIFT Jodhpur. I co-founded Laccus, run Naulant Labs and work with Urban Koki, a food brand serving traditional Sindhi dishes.</p>
-      <p data-r>I also write: stories, films and ideas where fashion, food and technology meet. (Replace this text with your own words.)</p>
-      <div class="tags" data-r><span>Fashion Technology</span><span>Founder</span><span>Writing</span><span>Film</span><span>Brand building</span></div>
+      <p data-r>Hey, I'm Chirag Asrani, an entrepreneur and creator who loves bringing ideas to life. I'm based in Udaipur and studying Fashion Technology at NIFT.</p>
+      <p data-r>I started Naulant in 2020 and now run Naulant Labs. I co-founded Naulant Summitrix and Laccus, host The Day With, and I'm building Naulant Spaces, a calm workspace for studying, working and group activities. I also write stories and make films.</p>
+      <div class="tags" data-r><span>Entrepreneurship</span><span>Brand building</span><span>Design</span><span>Event tech &amp; media</span><span>Hosting</span><span>Team leadership</span><span>Writing</span><span>Fashion technology</span></div>
+    </div>
     </div>
   </div>
 </section>
@@ -174,10 +176,15 @@ footer{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;paddin
 
 <section id="experience">
   <h2 data-split>Experience</h2>
+  <div class="exp"><div class="yr">May 2025</div><div><h3>Founder, Naulant Labs</h3><small>India</small></div><div class="yr">Present</div></div>
+  <div class="exp"><div class="yr">Nov 2024</div><div><h3>Naulant Spaces</h3><small>A collaborative workspace for studying, working and group activities. Currently in development.</small></div><div class="yr">In progress</div></div>
+  <div class="exp"><div class="yr">Sep 2024</div><div><h3>Co-Founder, Naulant Summitrix</h3><small>Udaipur, Rajasthan</small></div><div class="yr">Present</div></div>
+  <div class="exp"><div class="yr">Jun 2024</div><div><h3>Head of IT, NSMUN</h3><small>Volunteer role. Led tech and digital operations, event systems, design and media for the conference.</small></div><div class="yr">Aug 2024</div></div>
+  <div class="exp"><div class="yr">Jul 2023</div><div><h3>Host, The Day With</h3><small>India</small></div><div class="yr">Present</div></div>
+  <div class="exp"><div class="yr">May 2020</div><div><h3>Founder &amp; CEO, Naulant</h3><small>Udaipur, Rajasthan</small></div><div class="yr">Present</div></div>
   <div class="exp"><div class="yr">Add year</div><div><h3>Co-Founder, Laccus</h3><small>Add a one-line description here.</small></div><div class="yr">Present</div></div>
-  <div class="exp"><div class="yr">Add year</div><div><h3>Founder, Naulant Labs</h3><small>Add a one-line description here.</small></div><div class="yr">Present</div></div>
-  <div class="exp"><div class="yr">Add year</div><div><h3>Urban Koki</h3><small>Food brand on Swiggy with traditional Sindhi items.</small></div><div class="yr">Present</div></div>
-  <div class="exp"><div class="yr">Add year</div><div><h3>B.Des Fashion Technology, NIFT Jodhpur</h3><small>Add your years and highlights.</small></div><div class="yr">Ongoing</div></div>
+  <div class="exp"><div class="yr">Add year</div><div><h3>Urban Koki</h3><small>Food brand on Swiggy serving traditional Sindhi items.</small></div><div class="yr">Present</div></div>
+  <div class="exp"><div class="yr">Add year</div><div><h3>Bachelor of Fashion Technology, NIFT Jodhpur</h3><small>Add your highlights here.</small></div><div class="yr">Ongoing</div></div>
 </section>
 
 <section id="resume">
@@ -207,7 +214,7 @@ footer{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;paddin
 const ME = {
   email: "chirag@thelaccus.com",
   whatsapp: "919999999999",            // country code + number, no + or spaces
-  linkedin: "https://www.linkedin.com/in/your-username",
+  linkedin: "https://in.linkedin.com/in/chiragasraninaulant",
   github: "https://github.com/your-username",
   instagram: "https://www.instagram.com/your-username"
 };
@@ -223,8 +230,8 @@ const S = [["Email", "mailto:" + ME.email], ["WhatsApp", "https://wa.me/" + ME.w
 $("#mail").textContent = ME.email; $("#mail").href = "mailto:" + ME.email;
 $("[data-social]").innerHTML = S.map(([n, u]) => `<a href="${u}" target="_blank" rel="noopener">${n}</a>`).join("");
 $("[data-social-cards]").innerHTML = S.slice(1).map(([n, u]) => `<a href="${u}" target="_blank" rel="noopener">${n}<span>↗</span></a>`).join("");
-$(".b1").textContent = Array(4).fill("Chirag Asrani ✦ Fashion Technology ✦ ").join("");
-$(".b2").textContent = Array(4).fill("Founder ✦ Writer ✦ Storyteller ✦ ").join("");
+$(".b1").textContent = Array(4).fill("Chirag Asrani ✦ Naulant ✦ ").join("");
+$(".b2").textContent = Array(4).fill("Entrepreneur ✦ Creator ✦ Writer ✦ ").join("");
 
 /* split headings into masked words */
 $$("[data-split]").forEach(el => {
