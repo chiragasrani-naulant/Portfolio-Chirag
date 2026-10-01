@@ -86,6 +86,11 @@ section.page{padding:16vh 4vw 6vh}
 .sl{display:flex;align-items:center;gap:16px;margin-bottom:3.5vh;font:400 .76rem var(--m);letter-spacing:.1em;text-transform:uppercase}
 .sl:after{content:"";flex:1;height:1px;background:var(--ink)}
 section.page h2{font-size:clamp(3rem,10vw,9rem);text-transform:lowercase;letter-spacing:-.055em;margin-bottom:6vh}
+.home-about{border-top:1px solid var(--line);padding-top:14vh!important}
+.home-about .about{max-width:1200px}
+.experience-heading{padding-top:10vh;padding-bottom:2vh}
+.experience-heading p{max-width:42ch;font-size:1.05rem;opacity:.7}
+.experience-heading .sl{margin-bottom:2vh}
 .about{display:grid;grid-template-columns:1fr 1.3fr;gap:6vw;align-items:start}
 .about p{margin-bottom:1.1em;max-width:58ch}
 .ph{aspect-ratio:4/5;background:var(--ink);border-radius:6px;overflow:hidden;display:grid;place-items:center;color:var(--lilac);font:500 8rem var(--d);letter-spacing:-.06em}
@@ -161,8 +166,8 @@ html.lenis,html.lenis body{height:auto}
   <a href="#home" class="logo" data-go="home">chirag/</a>
   <span id="pct" aria-hidden="true">0%</span>
   <nav class="top">
-    <a href="#home" data-go="home" class="on">Projects</a>
-    <a href="#about" data-go="about">About</a>
+    <a href="#home" data-go="home" class="on">Home</a>
+    <a href="#experience" data-scroll="experience">Experience</a>
     <a href="#contact" data-go="contact">Contact</a>
   </nav>
 </header>
@@ -174,7 +179,7 @@ html.lenis,html.lenis body{height:auto}
     <p class="sub" data-r>Entrepreneur and creator from Udaipur, turning ideas into brands, spaces and stories.</p>
     <div class="btns" data-r>
       <a class="btn" href="#contact" data-go="contact">Get in touch</a>
-      <a class="btn alt" href="#about" data-go="about">About me</a>
+      <a class="btn alt" href="#home-about" data-scroll="home-about">About me</a>
     </div>
     <dl class="spec" data-r>
       <div><dt>Role</dt><dd>Entrepreneur / Creator</dd></div>
@@ -184,8 +189,25 @@ html.lenis,html.lenis body{height:auto}
     </dl>
   </section>
 
+  <section class="home-about page" id="home-about">
+    <div class="sl">01 / About Me</div>
+    <h2>about me</h2>
+    <div class="about">
+      <div class="ph" id="ph-home">CA</div>
+      <div>
+        <p data-r>Hey, I'm Chirag Asrani, an entrepreneur and creator who loves bringing ideas to life. I'm based in Udaipur and studying Fashion Technology at NIFT.</p>
+        <p data-r>I started Naulant in 2020 and now run Naulant Labs. I co-founded Naulant Summitrix and Laccus, host The Day With, and I'm building Naulant Spaces, a calm workspace for studying, working and group activities. I also write stories and make films.</p>
+        <div class="tags" data-r><span>Entrepreneurship</span><span>Brand building</span><span>Design</span><span>Event tech &amp; media</span><span>Hosting</span><span>Team leadership</span><span>Writing</span><span>Fashion technology</span></div>
+      </div>
+    </div>
+  </section>
+
   <section class="work" id="experience">
     <div class="list">
+      <div class="experience-heading">
+        <div class="sl">02 / Experience</div>
+        <p>Things I've built, led, co-founded and worked on.</p>
+      </div>
       <article class="item" data-y="2025 — Now" data-role="Founder">
         <h2>naulantlabs</h2>
         <p class="meta"><span>Role. Founder, Naulant Labs</span><span>Year. May 2025 – Present</span></p>
@@ -236,21 +258,10 @@ html.lenis,html.lenis body{height:auto}
   </section>
 </div>
 
-<section class="page" id="about">
-  <div class="sl">01 / About</div>
-  <h2>about</h2>
-  <div class="about">
-    <div class="ph" id="ph">CA</div>
-    <div>
-      <p data-r>Hey, I'm Chirag Asrani, an entrepreneur and creator who loves bringing ideas to life. I'm based in Udaipur and studying Fashion Technology at NIFT.</p>
-      <p data-r>I started Naulant in 2020 and now run Naulant Labs. I co-founded Naulant Summitrix and Laccus, host The Day With, and I'm building Naulant Spaces, a calm workspace for studying, working and group activities. I also write stories and make films.</p>
-      <div class="tags" data-r><span>Entrepreneurship</span><span>Brand building</span><span>Design</span><span>Event tech &amp; media</span><span>Hosting</span><span>Team leadership</span><span>Writing</span><span>Fashion technology</span></div>
-    </div>
-  </div>
-</section>
+
 
 <section class="page" id="contact">
-  <div class="sl">02 / Contact</div>
+  <div class="sl">03 / Contact</div>
   <h2>let's talk</h2>
   <a class="big" id="mail" data-r href="#"></a>
   <div class="links" data-social-cards data-r></div>
@@ -258,8 +269,8 @@ html.lenis,html.lenis body{height:auto}
 </main>
 
 <div id="hud" aria-hidden="true">
-  <div class="cnt"><span>Project</span><b id="pn">00</b><span>/ <span id="pt">00</span></span></div>
-  <div class="hint">Portfolio 2026 — scroll to discover</div>
+  <div class="cnt"><span>Experience</span><b id="pn">00</b><span>/ <span id="pt">00</span></span></div>
+  <div class="hint">Portfolio 2026 — scroll to explore</div>
   <span></span>
 </div>
 
@@ -303,7 +314,10 @@ const pad = n => String(n).padStart(2, "0");
 const S = [["Email", "mailto:" + ME.email], ["WhatsApp", "https://wa.me/" + ME.whatsapp], ["LinkedIn", ME.linkedin], ["GitHub", ME.github], ["Instagram", ME.instagram]].filter(([n, u]) => !/your-username|919999999999/.test(u));
 $("#mail").textContent = ME.email; $("#mail").href = "mailto:" + ME.email;
 $("[data-social-cards]").innerHTML = S.slice(1).map(([n, u]) => `<a href="${u}" target="_blank" rel="noopener">${n}<span>↗</span></a>`).join("");
-if (PHOTO) { const im = new Image(); im.alt = "Chirag Asrani"; im.width = 720; im.height = 900; im.src = PHOTO; $("#ph").textContent = ""; $("#ph").append(im); }
+if (PHOTO) {
+  const im = new Image(); im.alt = "Chirag Asrani"; im.width = 720; im.height = 900; im.src = PHOTO;
+  const ph = $("#ph-home"); if (ph) { ph.textContent = ""; ph.append(im); }
+}
 
 /* tiles (sticky stage + mobile inline) */
 const P = [["#3B57C7", "#ffffff"], ["#0e1220", "#c3cdf3"], ["#ff6b2c", "#0e0e0e"], ["#c3cdf3", "#0e0e0e"], ["#1c2760", "#ffffff"]];
@@ -342,25 +356,92 @@ addEventListener("resize", onScroll);
 const rl = $(".rw em"), rn = rl ? rl.children.length : 0; let rk = 0;
 if (rl) setInterval(() => { rk++; gsap.to(rl, {yPercent: -100 * rk / rn, duration: .8, ease: "expo.inOut", onComplete: () => { if (rk === rn - 1) { rk = 0; gsap.set(rl, {yPercent: 0}); } }}); }, 2200);
 
-/* pages with wipe transition (home keeps the full scroll) */
+/* pages with wipe transition */
 let busy = false; const wipe = $("#wipe"), wname = $("#wname");
-function mark(name) { $$("nav.top a").forEach(a => a.classList.toggle("on", a.dataset.go === name)); }
+
+function mark(name) {
+  $$("nav.top a").forEach(a => a.classList.toggle("on", a.dataset.go === name));
+}
+
 function show(name) {
   $$("main>*").forEach(n => n.classList.remove("on"));
-  document.body.classList.toggle("solo", name !== "home");
-  if (name !== "home") $("#" + name).classList.add("on");
-  view = name; mark(name);
-  if (lenis) lenis.scrollTo(0, {immediate: true}); else scrollTo({top: 0, behavior: "instant"});
+
+  if (name === "home") {
+    document.body.classList.remove("solo");
+  } else {
+    document.body.classList.add("solo");
+    const target = $("#" + name);
+    if (target) target.classList.add("on");
+  }
+
+  view = name;
+  mark(name);
+
+  if (lenis) lenis.scrollTo(0, {immediate: true});
+  else scrollTo({top: 0, behavior: "instant"});
+
   history.replaceState(null, "", "#" + name);
-  cur = -2; onScroll();
+  cur = -2;
+  onScroll();
+
   const r = $$(name === "home" ? "#home .intro [data-r]" : "#" + name + " [data-r]");
-  gsap.fromTo(r, {y: 30, opacity: 0}, {y: 0, opacity: 1, duration: 1, ease: "expo.out", stagger: .1, delay: .1});
+  if (r.length) {
+    gsap.fromTo(r, {y: 30, opacity: 0}, {
+      y: 0, opacity: 1, duration: 1, ease: "expo.out", stagger: .1, delay: .1
+    });
+  }
 }
+
+/* Experience is inside Home, not a standalone page. */
+function scrollToExperience() {
+  const target = $("#experience");
+  if (!target) return;
+
+  view = "home";
+  document.body.classList.remove("solo");
+  $$("main>*").forEach(n => n.classList.remove("on"));
+  mark("experience");
+
+  if (lenis) lenis.scrollTo(target, {offset: 0});
+  else target.scrollIntoView({behavior: "smooth", block: "start"});
+
+  history.replaceState(null, "", "#experience");
+}
+
 function go(name) {
   if (busy) return;
-  if (name === view) { if (name === "home") { if (lenis) lenis.scrollTo(0); else scrollTo({top: 0, behavior: "smooth"}); } return; }
-  busy = true; wname.textContent = name;
-  gsap.timeline({onComplete: () => { busy = false; }})
+
+  if (name === "experience") {
+    busy = true;
+    wname.textContent = "experience";
+
+    gsap.timeline({
+      onComplete: () => { busy = false; }
+    })
+      .set(wipe, {y: "100%"})
+      .to(wipe, {y: "0%", duration: .8, ease: "expo.inOut"})
+      .to(wname, {opacity: 1, duration: .25}, "-=.25")
+      .add(scrollToExperience)
+      .to(wname, {opacity: 0, duration: .2}, "+=.15")
+      .to(wipe, {y: "-100%", duration: .8, ease: "expo.inOut"});
+
+    return;
+  }
+
+  if (name === view) {
+    if (name === "home") {
+      if (lenis) lenis.scrollTo(0);
+      else scrollTo({top: 0, behavior: "smooth"});
+    }
+    return;
+  }
+
+  busy = true;
+  wname.textContent = name;
+
+  gsap.timeline({
+    onComplete: () => { busy = false; }
+  })
     .set(wipe, {y: "100%"})
     .to(wipe, {y: "0%", duration: .8, ease: "expo.inOut"})
     .to(wname, {opacity: 1, duration: .25}, "-=.25")
@@ -368,7 +449,13 @@ function go(name) {
     .to(wname, {opacity: 0, duration: .2}, "+=.15")
     .to(wipe, {y: "-100%", duration: .8, ease: "expo.inOut"});
 }
-document.addEventListener("click", e => { const a = e.target.closest("[data-go]"); if (!a) return; e.preventDefault(); go(a.dataset.go); });
+
+document.addEventListener("click", e => {
+  const a = e.target.closest("[data-go]");
+  if (!a) return;
+  e.preventDefault();
+  go(a.dataset.go);
+});
 
 /* Chat about Chirag (built-in answers, no server needed) */
 const KB = [
@@ -424,7 +511,13 @@ gsap.timeline()
   .to(hr, {y: 0, opacity: 1, duration: 1.1, ease: "expo.out", stagger: .1}, "-=.6");
 onScroll();
 const h0 = location.hash.slice(1);
-if (h0 === "about" || h0 === "contact") setTimeout(() => go(h0), 3400);
+if (h0 === "contact") setTimeout(() => go("contact"), 3400);
+if (h0 === "experience" || h0 === "home-about") {
+  setTimeout(() => {
+    const target = $("#" + h0);
+    if (target) (lenis ? lenis.scrollTo(target) : target.scrollIntoView({behavior:"smooth"}));
+  }, 3400);
+}
 </script>
 </body>
 </html>
