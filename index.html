@@ -102,6 +102,30 @@ h2{font-size:clamp(2.2rem,7.5vw,5.6rem);margin-bottom:5vh}
 .links a:hover{background:var(--cobalt);color:#fff;box-shadow:none;transform:translateY(-6px)}
 footer{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;padding:6vh 6vw 5vh;font-size:.95rem;opacity:.8}
 
+#curtain{position:fixed;inset:0;z-index:90;display:flex;pointer-events:none}
+#curtain div{flex:1;background:var(--cobalt);transform:scaleY(0);transform-origin:bottom}
+#curtain b{position:absolute;inset:0;display:grid;place-items:center;font:500 clamp(2rem,8vw,5rem) var(--d);color:#fff;opacity:0}
+body.solo main>*{display:none}
+body.solo main>.on{display:block}
+#cbtn{position:fixed;right:18px;bottom:18px;z-index:50;padding:13px 20px;border-radius:99px;background:var(--cobalt);color:#fff;font:500 .95rem var(--d);box-shadow:0 10px 30px rgba(42,59,255,.35)}
+#cbtn:before{content:"";position:absolute;inset:0;border-radius:99px;animation:rp 2.4s infinite}
+@keyframes rp{0%{box-shadow:0 0 0 0 rgba(42,59,255,.5)}70%,100%{box-shadow:0 0 0 16px rgba(42,59,255,0)}}
+#chat{position:fixed;right:18px;bottom:18px;z-index:52;width:min(380px,calc(100vw - 24px));height:min(540px,76vh);height:min(540px,76svh);background:#fff;border-radius:22px;box-shadow:0 20px 60px rgba(15,18,48,.3);display:flex;flex-direction:column;overflow:hidden;visibility:hidden}
+.ch{display:flex;justify-content:space-between;align-items:center;padding:16px 18px;background:var(--ink);color:#fff;font:500 1rem var(--d)}
+.ch small{display:block;font:400 .78rem var(--b);opacity:.7}
+.ch button{font-size:1.1rem;padding:4px 8px}
+#clog{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:10px}
+.m{max-width:85%;padding:10px 14px;border-radius:16px;font-size:.95rem;line-height:1.5;white-space:pre-wrap}
+.m.b{background:var(--mist);border-bottom-left-radius:4px;align-self:flex-start}
+.m.u{background:var(--cobalt);color:#fff;border-bottom-right-radius:4px;align-self:flex-end}
+.m.t{animation:pl 1s infinite}
+@keyframes pl{50%{opacity:.35}}
+.chips{display:flex;flex-wrap:wrap;gap:8px;padding:0 16px 10px}
+.chips button{padding:6px 12px;border-radius:99px;box-shadow:inset 0 0 0 1.5px var(--ink);font-size:.82rem}
+.chips button:hover{background:var(--ink);color:#fff}
+.cf{display:flex;gap:8px;padding:12px;border-top:1px solid var(--mist)}
+.cf input{flex:1;min-width:0;border:0;background:var(--mist);border-radius:99px;padding:11px 16px;font:inherit;font-size:16px;color:var(--ink)}
+.cf button{padding:0 18px;border-radius:99px;background:var(--ink);color:#fff;font:500 .9rem var(--d)}
 #cur{position:fixed;left:0;top:0;width:18px;height:18px;margin:-9px 0 0 -9px;border-radius:50%;background:#fff;mix-blend-mode:difference;z-index:200;pointer-events:none;display:none}
 @media(hover:hover) and (pointer:fine){#cur{display:block}}
 @media(max-width:760px){
@@ -124,6 +148,7 @@ footer{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;paddin
   <div class="l-count" id="count">0</div>
 </div>
 <div id="bar"></div>
+<div id="curtain" aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><b id="cname"></b></div>
 <div id="cur"></div>
 <canvas id="threads" aria-hidden="true"></canvas>
 <i class="orb o1"></i><i class="orb o2"></i>
@@ -207,6 +232,14 @@ footer{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;paddin
 </main>
 <footer><span>© Chirag Asrani</span><a href="#home" data-go="home">Back to top ↑</a></footer>
 
+<button id="cbtn" aria-label="Ask about Chirag">✦ Ask about Chirag</button>
+<div id="chat" role="dialog" aria-label="Chat about Chirag">
+  <div class="ch"><div>Chirag's assistant<small>Ask me anything about Chirag</small></div><button id="cx" aria-label="Close chat">✕</button></div>
+  <div id="clog"></div>
+  <div class="chips" id="chips"></div>
+  <form class="cf" id="cform"><input id="cin" placeholder="Ask about Chirag..." autocomplete="off" maxlength="300" aria-label="Your question"><button type="submit">Send</button></form>
+</div>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <script>
@@ -258,17 +291,37 @@ function openMenu() {
   gsap.fromTo("#menu nav a span", {yPercent: 110}, {yPercent: 0, duration: 1, ease: "expo.out", stagger: .07, delay: .35});
   gsap.fromTo("#menu .soc a", {opacity: 0, y: 20}, {opacity: 1, y: 0, stagger: .06, delay: .8});
 }
-function closeMenu() {
+function closeMenu(quick) {
   if (!open) return; open = false; btn.classList.remove("open"); btn.setAttribute("aria-expanded", "false"); $("#mlabel").textContent = "Menu";
   document.documentElement.style.overflow = "";
-  gsap.to(menu, {clipPath: "circle(0% at calc(100% - 6vw) 40px)", duration: .8, ease: "expo.inOut", onComplete: () => gsap.set(menu, {visibility: "hidden"})});
+  gsap.to(menu, {clipPath: "circle(0% at calc(100% - 6vw) 40px)", duration: quick ? .01 : .8, ease: "expo.inOut", onComplete: () => gsap.set(menu, {visibility: "hidden"})});
 }
 btn.onclick = () => open ? closeMenu() : openMenu();
 addEventListener("keydown", e => { if (e.key === "Escape") closeMenu(); });
-$$("[data-go]").forEach(a => a.addEventListener("click", e => {
-  e.preventDefault(); const was = open; closeMenu();
-  setTimeout(() => $("#" + a.dataset.go).scrollIntoView({behavior: reduce ? "auto" : "smooth"}), was ? 350 : 0);
-}));
+/* separate "pages" with curtain transition (home keeps the full scroll) */
+let view = "home", busy = false;
+const strips = $$("#curtain div"), cname = $("#cname");
+function show(name) {
+  $$("main>*").forEach(n => n.classList.remove("on"));
+  document.body.classList.toggle("solo", name !== "home");
+  if (name !== "home") $("#" + name).classList.add("on");
+  view = name; scrollTo({top: 0, behavior: "instant"}); history.replaceState(null, "", "#" + name);
+  setTimeout(() => ScrollTrigger.refresh(), 60);
+}
+function go(name) {
+  if (busy) return;
+  if (name === view) { closeMenu(); if (name === "home") scrollTo({top: 0, behavior: "smooth"}); return; }
+  busy = true; cname.textContent = name[0].toUpperCase() + name.slice(1);
+  gsap.timeline({onComplete: () => { busy = false; }})
+    .set(strips, {transformOrigin: "bottom"})
+    .to(strips, {scaleY: 1, duration: .8, ease: "expo.inOut", stagger: .07})
+    .to(cname, {opacity: 1, duration: .3}, "-=.3")
+    .add(() => { closeMenu(true); show(name); })
+    .to(cname, {opacity: 0, duration: .25}, "+=.2")
+    .set(strips, {transformOrigin: "top"})
+    .to(strips, {scaleY: 0, duration: .8, ease: "expo.inOut", stagger: .07});
+}
+document.addEventListener("click", e => { const a = e.target.closest("[data-go]"); if (!a) return; e.preventDefault(); go(a.dataset.go); });
 
 /* cursor + magnetic buttons */
 const dot = $("#cur");
@@ -335,6 +388,51 @@ if (!reduce) {
   ScrollTrigger.create({onUpdate: s => { sk(gsap.utils.clamp(-8, 8, s.getVelocity() / -250)); }});
 }
 
+/* Chat about Chirag (built-in answers, no server needed) */
+const KB = [
+  [/laccus/i, "Chirag is a co-founder of Laccus."],
+  [/koki|swiggy|sindhi/i, "Urban Koki is a food brand on Swiggy serving traditional Sindhi items like Koki and Dahi Bada. Chirag is involved with it."],
+  [/spaces/i, "Naulant Spaces is a project Chirag started in Nov 2024: a calm, collaborative workspace for studying, working and group activities. It is still in development."],
+  [/summitrix/i, "Chirag co-founded Naulant Summitrix in Sep 2024 in Udaipur."],
+  [/labs/i, "Chirag founded Naulant Labs in May 2025."],
+  [/naulant/i, "Naulant is the company Chirag founded in May 2020 in Udaipur, where he is Founder & CEO. He also runs Naulant Labs, co-founded Naulant Summitrix and is building Naulant Spaces."],
+  [/day with|host/i, "Chirag has been a host of The Day With since Jul 2023."],
+  [/\bmun\b|nsmun/i, "In 2024 Chirag volunteered as Head of IT for NSMUN, leading tech and digital operations, event systems, design and media for the conference."],
+  [/nift|study|college|educat|degree|school/i, "Chirag studies Bachelor of Fashion Technology at NIFT Jodhpur."],
+  [/where|located|udaipur|city|live|based/i, "Chirag is based in Udaipur, Rajasthan, India."],
+  [/skill|good at|expert|strength/i, "Entrepreneurship, brand building, design, event tech and media, hosting, team leadership and writing."],
+  [/resume|\bcv\b/i, "You can open or download Chirag's resume from the Resume page."],
+  [/contact|email|mail|reach|hire|linkedin|insta|github|whatsapp|connect|work with/i, () => "You can reach Chirag at " + ME.email + ". His LinkedIn, Instagram, GitHub and WhatsApp links are on the Contact page."],
+  [/write|writer|film|stor(y|ies)/i, "Chirag also writes stories and makes films."],
+  [/who|about|intro|kaun|tell me|chirag|yourself|do he do|does he do/i, "Chirag Asrani is an entrepreneur and creator from Udaipur who loves bringing ideas to life. He studies Fashion Technology at NIFT Jodhpur, founded Naulant in 2020, runs Naulant Labs, and co-founded Naulant Summitrix and Laccus."],
+  [/^(hi|hello|hey|namaste)\b/i, "Hi! Ask me anything about Chirag: his work, studies, projects or how to reach him."]
+];
+const local = q => { for (const [r, a] of KB) if (r.test(q)) return typeof a === "function" ? a() : a; return "I only know what's on this site. For anything else, email Chirag at " + ME.email + "."; };
+const cbtn = $("#cbtn"), chat = $("#chat"), clog = $("#clog"), cin = $("#cin"), chips = $("#chips"); let hist = [], thinking = false;
+function add(t, c) { const d = document.createElement("div"); d.className = "m " + c; d.textContent = t; clog.append(d); clog.scrollTop = clog.scrollHeight; return d; }
+async function ask(q) {
+  if (thinking) return; thinking = true; chips.style.display = "none";
+  add(q, "u"); hist.push({role: "user", content: q}); hist = hist.slice(-8); while (hist.length && hist[0].role !== "user") hist.shift();
+  const tp = add("Thinking...", "b t"); let a;
+  await new Promise(r => setTimeout(r, 600)); a = local(q);
+  tp.classList.remove("t"); tp.textContent = a; clog.scrollTop = clog.scrollHeight;
+  hist.push({role: "assistant", content: a}); thinking = false;
+}
+add("Hi! I'm Chirag's assistant. Ask me about his work, studies, projects or how to reach him.", "b");
+["Who is Chirag?", "What does he do?", "Tell me about Naulant", "How can I contact him?"].forEach(t => { const b = document.createElement("button"); b.type = "button"; b.textContent = t; b.onclick = () => ask(t); chips.append(b); });
+$("#cform").addEventListener("submit", e => { e.preventDefault(); const q = cin.value.trim(); if (q) { cin.value = ""; ask(q); } });
+function toggleChat(v) {
+  if (v) {
+    gsap.set(chat, {visibility: "visible"});
+    gsap.fromTo(chat, {scale: .8, opacity: 0, y: 30, transformOrigin: "100% 100%"}, {scale: 1, opacity: 1, y: 0, duration: .6, ease: "expo.out"});
+    gsap.to(cbtn, {scale: 0, opacity: 0, duration: .3, onComplete: () => { cbtn.style.visibility = "hidden"; }});
+  } else {
+    gsap.to(chat, {scale: .8, opacity: 0, y: 30, duration: .4, ease: "expo.in", onComplete: () => gsap.set(chat, {visibility: "hidden"})});
+    cbtn.style.visibility = "visible"; gsap.to(cbtn, {scale: 1, opacity: 1, duration: .4});
+  }
+}
+cbtn.onclick = () => toggleChat(true); $("#cx").onclick = () => toggleChat(false);
+
 /* loader intro, then hero reveal */
 const t = $("#thread"), len = t.getTotalLength(), cnt = {v: 0}, hw = $$("#home .w>span"), hr = $$("#home [data-r]");
 gsap.set(t, {strokeDasharray: len, strokeDashoffset: len});
@@ -348,6 +446,8 @@ gsap.timeline()
   .set("#loader", {display: "none"})
   .to(hw, {yPercent: 0, rotate: 0, duration: 1.1, ease: "expo.out", stagger: .08}, "-=.5")
   .to(hr, {...rise, stagger: .12}, "-=.7");
+const h0 = location.hash.slice(1);
+if (h0 && h0 !== "home" && $("#" + h0)) setTimeout(() => go(h0), 3600);
 </script>
 </body>
 </html>
