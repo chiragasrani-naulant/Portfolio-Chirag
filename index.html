@@ -48,8 +48,8 @@ body.solo #hud{display:none!important}
 /* HOME / intro */
 .intro{min-height:100vh;min-height:100svh;padding:110px 4vw 90px;display:flex;flex-direction:column;justify-content:center}
 .intro h1{font-size:clamp(2.5rem,min(8.6vw,17vh),8.5rem);max-width:15ch;letter-spacing:-.05em}
-.intro h1 .rw{display:inline-block;height:1em;overflow:hidden;vertical-align:bottom;color:var(--cobalt)}
-.intro h1 .rw em{display:block;font-style:normal}
+.intro h1 .rw{display:inline-block;height:1em;overflow:hidden;vertical-align:bottom;color:var(--cobalt);isolation:isolate;transform:translateZ(0)}
+.intro h1 .rw em{display:block;font-style:normal;will-change:transform}
 .intro h1 .rw i{display:block;height:1em;line-height:1;white-space:nowrap;font-style:normal;padding-bottom:.06em}
 .intro .sub{max-width:34ch;margin-top:4vh;font-size:clamp(1rem,1.4vw,1.2rem)}
 .btns{display:flex;gap:12px;flex-wrap:wrap;margin-top:3.5vh}
@@ -73,17 +73,31 @@ body.solo #hud{display:none!important}
 .item .more:hover{background:var(--ink);color:var(--bg)}
 .item .mt{display:none}
 .work{display:block}
+.scroller{position:relative;height:calc(var(--n,10)*70vh + 30vh)}
+.stick{position:sticky;top:0;height:100vh;height:100svh;display:grid;place-items:center}
+.card{width:min(430px,100%)}
+.card{display:flex;flex-direction:column;gap:14px;padding:18px;border-radius:28px;background:#fff;box-shadow:0 1px 0 var(--line);cursor:pointer;transition:transform .5s cubic-bezier(.7,0,.2,1),box-shadow .5s}
+.card:hover{transform:translateY(-6px);box-shadow:0 18px 40px rgba(14,14,14,.12)}
+.c-top{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.c-pill{padding:7px 12px;border-radius:8px;background:var(--ink);color:#fff;font:400 .7rem var(--m);letter-spacing:.06em;text-transform:uppercase;white-space:nowrap}
+.c-date{display:flex;border-radius:8px;overflow:hidden;box-shadow:inset 0 0 0 1.5px var(--ink);font:500 .7rem var(--m);letter-spacing:.06em}
+.c-date i{font-style:normal;background:var(--ink);color:#fff;padding:7px 10px}
+.c-date b{font-weight:500;padding:7px 12px}
+.c-title{font:500 clamp(1.7rem,2.6vw,2.2rem)/1.05 var(--d);letter-spacing:-.04em;margin-top:6px;overflow-wrap:anywhere}
+.c-desc{font-size:.95rem;line-height:1.45;color:rgba(14,14,14,.45);display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.c-btn{align-self:flex-start;padding:9px 14px;border-radius:8px;box-shadow:inset 0 0 0 1.5px var(--ink);font:500 .72rem var(--m);letter-spacing:.06em;text-transform:uppercase;transition:background .3s,color .3s}
+.card:hover .c-btn{background:var(--ink);color:#fff}
+.c-img{position:relative;aspect-ratio:4/3;border-radius:20px;overflow:hidden;background-color:var(--bg2);background-position:center;background-size:cover;transition:background-color .6s;color:var(--fg);display:flex;flex-direction:column;justify-content:flex-end;padding:16px}
+.c-img:before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(0deg,rgba(255,255,255,.1) 0 1px,transparent 1px 24px);mix-blend-mode:overlay}
+.c-img.has:before{display:none}
+.c-img.has:after{content:"";position:absolute;inset:auto 0 0 0;height:55%;background:linear-gradient(transparent,rgba(0,0,0,.7))}
+.c-letter{position:absolute;right:12px;top:0;font:500 7.5rem/1 var(--d);letter-spacing:-.06em;text-transform:lowercase;opacity:.95}
+.c-img.has .c-letter{display:none}
+.c-cap{position:relative;z-index:1;display:flex;flex-direction:column;font-size:.95rem;line-height:1.3}
+.c-cap b{font-weight:500}.c-cap span{opacity:.8}
+.c-img.has .c-cap{color:#fff}
 .list{padding:10vh 0 14vh}
 .work .item{display:none!important}
-.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px;margin-top:4vh}
-.card{aspect-ratio:4/5;border-radius:8px;cursor:pointer;transition:transform .5s cubic-bezier(.7,0,.2,1)}
-.card:hover{transform:translateY(-6px)}
-.card.img{background-size:cover;background-position:center}
-.card.img:before,.card.img .t-mid{display:none}
-.card.img .t-top span,.card.img .t-bot b,.card.img .t-bot span{align-self:flex-start;background:var(--ink);color:#fff;padding:4px 8px;border-radius:4px}
-.card .t-mid{font-size:clamp(6rem,11vw,9rem)}
-.card .t-bot{flex-direction:column;align-items:flex-start;gap:8px}
-.card .t-bot b{font-size:1.3rem;overflow-wrap:anywhere}
 .stage{position:sticky;top:0;height:100vh;height:100svh;display:grid;place-items:center}
 .frame{position:relative;width:100%;max-width:460px;aspect-ratio:4/5;overflow:hidden;background:var(--line)}
 .tile,.mt{--bg2:#000;--fg:#fff;background:var(--bg2);color:var(--fg);position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:space-between;padding:22px}
@@ -249,7 +263,7 @@ html.lenis,html.lenis body{height:auto}
         <div class="sl">02 / Experience</div>
         <p>Things I've built, led, co-founded and worked on. Tap any card for the full story.</p>
       </div>
-      <div class="cards" id="cards"></div>
+      <div class="scroller" id="scroller"><div class="stick" id="stick"></div></div>
       <article class="item" data-y="2020 — Now" data-role="Founder &amp; CEO">
         <h2>naulantlabs</h2>
         <p class="meta"><span>Role. Founder &amp; CEO, Naulant Labs</span><span>Year. Mar 2020 – Present</span></p>
@@ -409,17 +423,33 @@ const metaOf = it => ({
   year: ($(".meta span:nth-child(2)", it).textContent || "").replace(/^Year\.\s*/, ""),
   desc: ($(".desc", it) || {}).textContent || ""
 });
-const cardsEl = $("#cards");
-items.forEach((it, i) => {
-  const [bg, fg] = P[i % P.length], name = slugOf(it), mt = metaOf(it);
-  const c = document.createElement("a");
-  const cv = (DETAILS[name] || {}).cover;
-  c.className = "mt card" + (cv ? " img" : "");
-  if (cv) c.style.backgroundImage = `url("${cv}")`; c.href = "#p-" + name; c.dataset.go = "p:" + name;
-  c.style.setProperty("--bg2", bg); c.style.setProperty("--fg", fg);
-  c.innerHTML = `<div class="t-top"><span>${pad(i + 1)}</span><span>${mt.year.split(" – ")[0]}</span></div><div class="t-mid">${name[0]}</div><div class="t-bot"><b>${name}</b><span>${it.dataset.role}</span></div>`;
-  cardsEl.append(c);
+const TITLES = {naulantlabs:"Naulant Labs", tedxnift:"TEDx NIFT Jodhpur", naulantspaces:"Naulant Spaces", rajasthanyouthconference:"Rajasthan Youth Conference", naulantsummitrix:"Naulant Summitrix", nsmun:"NSMUN", thedaywith:"The Day With", laccus:"Laccus", urbankoki:"Urban Koki", nift:"NIFT Jodhpur"};
+const stick = $("#stick"), scroller = $("#scroller");
+scroller.style.setProperty("--n", items.length);
+const CD = items.map((it, i) => {
+  const [bg, fg] = P[i % P.length], name = slugOf(it), mt = metaOf(it), d = DETAILS[name] || {};
+  const dm = mt.year.match(/([A-Za-z]{3})\w*\s+(\d{4})/);
+  return {name, bg, fg, n: pad(i + 1), title: TITLES[name] || name, role: it.dataset.role, cover: d.cover || "",
+    mon: dm ? dm[1].toUpperCase() : "NOW", yy: dm ? dm[2].slice(2) : "", sub: d.where || mt.year,
+    blurb: ((d.intro || mt.desc).match(/^.*?[.!?](\s|$)/) || [d.intro || mt.desc])[0].trim()};
 });
+stick.innerHTML = `<a class="card" id="scard" href="#">
+  <div class="c-top"><span class="c-pill" id="k-pill" data-sw></span><span class="c-date" data-sw><i id="k-mon"></i><b id="k-yy"></b></span></div>
+  <h3 class="c-title" id="k-title" data-sw></h3><p class="c-desc" id="k-desc" data-sw></p><span class="c-btn">Know more ↗</span>
+  <div class="c-img" id="k-img"><span class="c-letter" id="k-let" data-sw></span><div class="c-cap"><b id="k-role" data-sw></b><span id="k-sub" data-sw></span></div></div></a>`;
+let curCard = -1;
+function setCard(i) {
+  if (i === curCard) return;
+  const first = curCard < 0, c = CD[i], card = $("#scard"); curCard = i;
+  card.href = "#p-" + c.name; card.dataset.go = "p:" + c.name;
+  $("#k-pill").textContent = "Experience " + c.n; $("#k-mon").textContent = c.mon; $("#k-yy").textContent = c.yy;
+  $("#k-title").textContent = c.title; $("#k-desc").textContent = c.blurb; $("#k-let").textContent = c.name[0];
+  $("#k-role").textContent = c.role; $("#k-sub").textContent = c.sub;
+  const im = $("#k-img"); im.classList.toggle("has", !!c.cover);
+  im.style.setProperty("--bg2", c.bg); im.style.setProperty("--fg", c.fg); im.style.backgroundImage = c.cover ? `url("${c.cover}")` : "none";
+  if (!first) gsap.fromTo($$("[data-sw]", card), {y: 18, opacity: 0}, {y: 0, opacity: 1, duration: .55, ease: "expo.out", stagger: .04, overwrite: true});
+}
+setCard(0);
 
 /* experience list page */
 $("#exp-list").innerHTML = items.map((it, i) => {
@@ -455,13 +485,18 @@ function onScroll() {
   tick = false;
   const max = document.documentElement.scrollHeight - innerHeight;
   $("#pct").textContent = Math.round(Math.min(1, Math.max(0, scrollY / (max || 1))) * 100) + "%";
+  if (view === "home") { const r = scroller.getBoundingClientRect(), span = r.height - innerHeight; setCard(Math.floor(Math.min(.9999, Math.max(0, -r.top / (span > 0 ? span : 1))) * CD.length)); }
 }
 addEventListener("scroll", () => { if (!tick) { tick = true; requestAnimationFrame(onScroll); } }, {passive: true});
 addEventListener("resize", onScroll);
 
 /* rolling role words */
-const rl = $(".rw em"), rn = rl ? rl.children.length : 0; let rk = 0;
-if (rl) setInterval(() => { rk++; gsap.to(rl, {yPercent: -100 * rk / rn, duration: .8, ease: "expo.inOut", onComplete: () => { if (rk === rn - 1) { rk = 0; gsap.set(rl, {yPercent: 0}); } }}); }, 2200);
+const rl = $(".rw em"), rn = rl ? rl.children.length : 0;
+if (rl && rn > 1) {
+  const roll = gsap.timeline({repeat: -1});
+  for (let k = 1; k < rn; k++) roll.to(rl, {yPercent: -100 * k / rn, duration: .8, ease: "expo.inOut"}, "+=1.4");
+  roll.set(rl, {yPercent: 0});
+}
 
 /* pages with wipe transition. names: home | experience | contact | p:<project> */
 let busy = false; const wipe = $("#wipe"), wname = $("#wname");
