@@ -73,7 +73,7 @@ body.solo #hud{display:none!important}
 .item .more:hover{background:var(--ink);color:var(--bg)}
 .item .mt{display:none}
 .work{display:block}
-.scroller{position:relative;height:calc(var(--n,10)*70vh + 30vh)}
+.scroller{position:relative;height:calc(var(--n,10)*95vh + 5vh)}
 .stick{position:sticky;top:0;height:100vh;height:100svh;display:grid;place-items:center}
 .card{width:min(430px,100%)}
 .card{display:flex;flex-direction:column;gap:14px;padding:18px;border-radius:28px;background:#fff;box-shadow:0 1px 0 var(--line);cursor:pointer;transition:transform .5s cubic-bezier(.7,0,.2,1),box-shadow .5s}
@@ -185,6 +185,7 @@ html.lenis,html.lenis body{height:auto}
 .lenis.lenis-smooth{scroll-behavior:auto!important}
 
 @media(max-width:860px){
+ .scroller{height:calc(var(--n,10)*130vh)}
  body{font-size:16px}
  header{padding:16px 5vw;grid-template-columns:auto 1fr auto;gap:12px}
  nav.top{gap:16px}#pct{display:none}
