@@ -163,24 +163,40 @@ footer{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;paddin
 #hud .hint{position:absolute;left:50%;bottom:26px;transform:translateX(-50%);opacity:.75;white-space:nowrap}
 
 /* chat */
-#cbtn{position:fixed;right:4vw;bottom:18px;z-index:55;padding:12px 18px;border-radius:6px;background:var(--ink);color:var(--bg);font:500 .76rem var(--m);letter-spacing:.08em;text-transform:uppercase;transition:background .3s}
+#cbtn{position:fixed;right:4vw;bottom:18px;z-index:55;padding:12px 18px;border-radius:999px;background:var(--ink);color:var(--bg);font:500 .76rem var(--m);letter-spacing:.08em;text-transform:uppercase;transition:background .3s}
 #cbtn:hover{background:var(--cobalt)}
-#chat{position:fixed;right:4vw;bottom:18px;z-index:56;width:min(380px,calc(100vw - 24px));height:min(540px,76vh);height:min(540px,76svh);background:var(--bg);border-radius:10px;box-shadow:0 0 0 1.5px var(--ink),0 20px 60px rgba(0,0,0,.25);display:flex;flex-direction:column;overflow:hidden;visibility:hidden}
-.ch{display:flex;justify-content:space-between;align-items:center;padding:16px 18px;background:var(--ink);color:var(--bg);font:500 1rem var(--d)}
-.ch small{display:block;font:400 .72rem var(--m);letter-spacing:.06em;opacity:.7}
-.ch button{font-size:1.1rem;padding:4px 8px}
-#clog{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:10px}
-.m{max-width:85%;padding:10px 14px;border-radius:8px;font-size:.95rem;line-height:1.5;white-space:pre-wrap}
-.m.b{background:#fff;box-shadow:inset 0 0 0 1px var(--line);align-self:flex-start}
-.m.u{background:var(--cobalt);color:#fff;align-self:flex-end}
+#chat{position:fixed;right:4vw;bottom:18px;z-index:56;width:min(380px,calc(100vw - 24px));height:min(580px,80vh);height:min(580px,80svh);background:var(--bg);border-radius:28px;box-shadow:0 0 0 1.5px var(--ink),0 24px 70px rgba(14,14,14,.25);display:flex;flex-direction:column;overflow:hidden;visibility:hidden}
+#cx{position:absolute;top:14px;right:14px;z-index:2;width:32px;height:32px;border-radius:50%;background:rgba(14,14,14,.08);font-size:.9rem;display:grid;place-items:center;transition:background .3s,color .3s}
+#cx:hover{background:var(--ink);color:#fff}
+#clog{flex:1;overflow-y:auto;padding:52px 22px 10px;display:flex;flex-direction:column;gap:10px}
+.empty{margin:auto;display:flex;flex-direction:column;align-items:center;gap:26px;text-align:center;font-size:1rem;line-height:1.5;max-width:28ch}
+#clog.has .empty{display:none}
+.orb{width:112px;height:112px;border-radius:50%;background:radial-gradient(circle at 62% 30%,#ffb52e 0,rgba(255,181,46,0) 42%),radial-gradient(circle at 34% 52%,#ff3d2e 0,rgba(255,61,46,0) 48%),radial-gradient(circle,#ff7a3d 0,#ffd2c0 62%,#fff 100%);filter:blur(1.5px);animation:orb 6s ease-in-out infinite alternate}
+.think{align-self:center;margin:auto;display:flex;flex-direction:column;align-items:center;gap:22px;padding:28px 0;font:400 .72rem var(--m);letter-spacing:.08em;text-transform:uppercase;color:rgba(14,14,14,.55)}
+.ob{position:relative;width:96px;height:96px}
+.ob:before,.ob:after{content:"";position:absolute;inset:0;border-radius:50%;border:1.5px solid var(--cobalt);opacity:0;animation:ring 1.8s ease-out infinite}
+.ob:after{animation-delay:.9s;border-color:var(--acc)}
+.ob .orb{width:96px;height:96px;animation:orbThink 1.8s ease-in-out infinite}
+@keyframes orbThink{0%{transform:scale(.9) rotate(0);filter:blur(1.5px) hue-rotate(0)}50%{transform:scale(1.15) rotate(180deg);filter:blur(3px) hue-rotate(30deg)}100%{transform:scale(.9) rotate(360deg);filter:blur(1.5px) hue-rotate(0)}}
+@keyframes ring{0%{transform:scale(.9);opacity:.55}100%{transform:scale(1.9);opacity:0}}
+@keyframes orb{0%{transform:scale(1) rotate(0)}100%{transform:scale(1.07) rotate(40deg)}}
+.m{max-width:85%;padding:10px 14px;border-radius:18px;font-size:.95rem;line-height:1.5;white-space:pre-wrap}
+.m.b{background:rgba(14,14,14,.06);align-self:flex-start;border-bottom-left-radius:6px}
+.m.u{background:var(--cobalt);color:#fff;align-self:flex-end;border-bottom-right-radius:6px}
 .m.t{animation:pl 1s infinite}
 @keyframes pl{50%{opacity:.35}}
-.chips{display:flex;flex-wrap:wrap;gap:8px;padding:0 16px 10px}
-.chips button{padding:6px 12px;border-radius:6px;box-shadow:inset 0 0 0 1.5px var(--ink);font:400 .72rem var(--m);letter-spacing:.04em;text-transform:uppercase}
+.chips{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;padding:0 18px 12px}
+.chips button{padding:7px 12px;border-radius:999px;background:rgba(14,14,14,.07);font:400 .7rem var(--m);letter-spacing:.04em;text-transform:uppercase;transition:background .3s,color .3s}
 .chips button:hover{background:var(--ink);color:var(--bg)}
-.cf{display:flex;gap:8px;padding:12px;border-top:1px solid var(--line)}
-.cf input{flex:1;min-width:0;border:0;background:#fff;box-shadow:inset 0 0 0 1px var(--line);border-radius:6px;padding:11px 14px;font:inherit;font-size:16px;color:var(--ink)}
-.cf button{padding:0 18px;border-radius:6px;background:var(--ink);color:var(--bg);font:500 .76rem var(--m);letter-spacing:.06em;text-transform:uppercase}
+.cf{margin:0 16px 16px;padding:14px;border-radius:22px;background:var(--bg);box-shadow:0 0 0 1.5px var(--ink);display:flex;flex-direction:column;gap:12px}
+.cf input{width:100%;border:0;background:transparent;padding:0;font:inherit;font-size:16px;color:var(--ink);outline:0}
+.cr{display:flex;align-items:center;gap:8px}
+.cs{display:flex;align-items:center;gap:6px;flex:1;font:400 .72rem var(--m);letter-spacing:.06em;text-transform:uppercase;color:rgba(14,14,14,.4)}
+.cr button{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;background:rgba(14,14,14,.08);font-size:1.15rem;line-height:1;transition:background .3s,color .3s}
+.cr button:hover{background:var(--cobalt);color:#fff}
+.cr button[type=submit]{background:var(--ink);color:#fff}
+.cr button[type=submit]:hover{background:var(--cobalt)}
+.cr button[hidden]{display:none}
 html.lenis,html.lenis body{height:auto}
 .lenis.lenis-smooth{scroll-behavior:auto!important}
 
@@ -207,7 +223,7 @@ html.lenis,html.lenis body{height:auto}
  footer{padding:5vh 5vw 14vh}
  #cbtn{right:5vw}
 }
-@media(prefers-reduced-motion:reduce){.tile{transition:none}}
+@media(prefers-reduced-motion:reduce){.tile{transition:none}.orb,.ob:before,.ob:after{animation:none}}
 </style>
 </head>
 <body>
@@ -340,10 +356,13 @@ html.lenis,html.lenis body{height:auto}
 
 <button id="cbtn" aria-label="Ask about Chirag">Ask about Chirag</button>
 <div id="chat" role="dialog" aria-label="Chat about Chirag">
-  <div class="ch"><div>Chirag's assistant<small>Ask me anything about Chirag</small></div><button id="cx" aria-label="Close chat">✕</button></div>
-  <div id="clog"></div>
+  <button id="cx" aria-label="Close chat">✕</button>
+  <div id="clog"><div class="empty"><div class="orb"></div><p>Hi! I'm Chirag's assistant. Ask me about his work, studies, projects or how to reach him.</p></div></div>
   <div class="chips" id="chips"></div>
-  <form class="cf" id="cform"><input id="cin" placeholder="Ask about Chirag..." autocomplete="off" maxlength="300" aria-label="Your question"><button type="submit">Send</button></form>
+  <form class="cf" id="cform">
+    <input id="cin" placeholder="Ask about Chirag..." autocomplete="off" maxlength="300" aria-label="Your question">
+    <div class="cr"><span class="cs">Powered by Naulant Labs</span><button type="submit" aria-label="Send">↑</button></div>
+  </form>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
@@ -577,14 +596,19 @@ const local = q => { for (const [r, a] of KB) if (r.test(q)) return typeof a ===
 const cbtn = $("#cbtn"), chat = $("#chat"), clog = $("#clog"), cin = $("#cin"), chips = $("#chips"); let hist = [], thinking = false;
 function add(t, c) { const d = document.createElement("div"); d.className = "m " + c; d.textContent = t; clog.append(d); clog.scrollTop = clog.scrollHeight; return d; }
 async function ask(q) {
-  if (thinking) return; thinking = true; chips.style.display = "none";
+  if (thinking) return; thinking = true; chips.style.display = "none"; clog.classList.add("has");
   add(q, "u"); hist.push({role: "user", content: q}); hist = hist.slice(-8); while (hist.length && hist[0].role !== "user") hist.shift();
-  const tp = add("Thinking...", "b t"); let a;
-  await new Promise(r => setTimeout(r, 600)); a = local(q);
-  tp.classList.remove("t"); tp.textContent = a; clog.scrollTop = clog.scrollHeight;
+  const tp = document.createElement("div"); tp.className = "think";
+  tp.innerHTML = '<div class="ob"><div class="orb"></div></div><span id="tmsg">Thinking...</span>';
+  clog.append(tp); clog.scrollTop = clog.scrollHeight;
+  const lines = ["Thinking...", "Looking through Chirag's work...", "Putting it together..."]; let li = 0;
+  const lt = setInterval(() => { li = (li + 1) % lines.length; const t = $("#tmsg"); if (t) t.textContent = lines[li]; }, 1100);
+  await new Promise(r => setTimeout(r, reduce ? 600 : 3000 + Math.random() * 1000));
+  clearInterval(lt); const a = local(q); tp.remove();
+  const bm = add("", "b"), words = a.split(" ");
+  for (let k = 1; k <= words.length; k++) { bm.textContent = words.slice(0, k).join(" "); clog.scrollTop = clog.scrollHeight; await new Promise(r => setTimeout(r, reduce ? 0 : 45)); }
   hist.push({role: "assistant", content: a}); thinking = false;
 }
-add("Hi! I'm Chirag's assistant. Ask me about his work, studies, projects or how to reach him.", "b");
 ["Who is Chirag?", "What does he do?", "Tell me about Naulant", "How can I contact him?"].forEach(t => { const b = document.createElement("button"); b.type = "button"; b.textContent = t; b.onclick = () => ask(t); chips.append(b); });
 $("#cform").addEventListener("submit", e => { e.preventDefault(); const q = cin.value.trim(); if (q) { cin.value = ""; ask(q); } });
 function toggleChat(v) {
